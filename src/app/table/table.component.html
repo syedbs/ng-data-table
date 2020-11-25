@@ -1,0 +1,62 @@
+<nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th nzCustomFilter>
+          Name
+          <!-- <app-table-filter [nzVisible]="visible" [isActive]="isActive()" ></app-table-filter> -->
+          <nz-filter-trigger [(nzVisible)]="visible"  [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu"  (nzVisibleChange)="tableNameClick($event, 'name')">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+          <!-- <button [nzPopoverPlacement]="rightBottom"  nz-button nz-popover nzPopoverTitle="Title" [nzPopoverContent]="contentTemplate" nzPopoverTrigger="click" (nzPopoverVisibleChange)="tableNameClick($event)">
+            Click me
+          </button> -->
+        </th>
+        <th>Age
+          
+        </th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of nzTable.data">
+        <td>{{ data.name }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.address }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu" >
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input (keyup)="fnFilterPTableColumn(searchValue)" type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+        <!-- <nz-list nzBordered nzSize="small" class="mb-3">
+          <nz-list-header>Header</nz-list-header>
+          <nz-list-item>item</nz-list-item>
+          <nz-list-footer>Footer</nz-list-footer>
+        </nz-list> -->
+        <ng-container *ngIf="listOfNameShowData && listOfNameShowData.length > 0">
+          <div style="margin: 20px 0px;">
+          <ng-container *ngFor="let item of  listOfNameShowData">
+            <div style="margin-bottom: 10px;">
+              <label nz-checkbox [(ngModel)]="item.checked">{{item.data}}</label> <br>
+            </div>
+          </ng-container>
+        </div>
+        </ng-container>
+        
+      
+        
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Ok
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <ng-template #contentTemplate>
+    <div>
+      <p>Content</p>
+      <p>Content</p>
+    </div>
+  </ng-template>

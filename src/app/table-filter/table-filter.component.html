@@ -1,0 +1,14 @@
+<nz-filter-trigger [nzVisible]="nzVisible" [nzActive]="isActive" [nzDropdownMenu]="menu">
+    <i nz-icon nzType="search"></i>
+  </nz-filter-trigger>
+<nz-dropdown-menu #menu="nzDropdownMenu" >
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" />
+        <button nz-button nzSize="small" nzType="primary"  class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
