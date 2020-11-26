@@ -139,12 +139,19 @@ export class TableComponent  {
   listOfNameMasterShowData = [];
   listOfDisplayData = [...this.listOfData];
   rightBottom = 'bottomRight';
-  isActive = (): boolean => {
-    return this.searchValue.length > 0;
+  isActive = (key): boolean => {
+    return this.activeKeys[key] ? this.activeKeys[key].active : false;
   }
+  activeKey: string;
+  activeKeys: any = {} // item: {search: '', active: false,reset:false}
 
   reset(): void {
+    this.visible = false;
     this.searchValue = '';
+    // this.activeKeys = {};
+    this.activeKeys[this.activeKey].search = '';
+    this.activeKeys[this.activeKey].active = false;
+    this.activeKeys[this.activeKey].reset = true;
     this.search();
     this.listOfDisplayData = this.listOfData;
   }
@@ -153,8 +160,9 @@ export class TableComponent  {
     this.visible = false;
     const cloneListOfNameShowData = [...this.listOfNameShowData]
     // this.listOfDisplayData = this.listOfData.filter((item: DataItem) => item.name.indexOf(this.searchValue) !== -1);
-    this.listOfDisplayData = this.fnCustomFilterFromMasterArray(this.listOfDisplayData, 'name',
+    this.listOfDisplayData = this.fnCustomFilterFromMasterArray(this.listOfDisplayData, this.activeKey,
     cloneListOfNameShowData.filter((rec: any) => rec.checked == true)) || [];
+    this.activeKeys[this.activeKey].active = true;
   }
   fnFindUniqueColumnWithCheckedFlag(objectSet: any[], findKey: any, ): any[] {
     // tslint:disable-next-line: one-variable-per-declaration
@@ -181,11 +189,17 @@ export class TableComponent  {
       const data = this.fnFindUniqueColumnWithCheckedFlag(this.listOfDisplayData, name);
       this.listOfNameShowData = data;
       this.listOfNameMasterShowData = data;
+      this.activeKey = name;
+      !this.activeKeys[name] && (this.activeKeys[name] = {search: '', active: false, reset: false});
+    }else{
+      this.activeKeys[this.activeKey].reset && (this.activeKeys[this.activeKey].search = '');
+      !this.visible && (this.searchValue = '');
+      this.activeKey = null;
     }
-    console.log(event);
   }
 
   fnFilterPTableColumn(arg: string): void {
+  this.activeKeys[this.activeKey].search = arg;
 
     if (arg.trim() !== '') {
       this.listOfNameShowData = this.listOfNameMasterShowData.filter((rec: any) =>
