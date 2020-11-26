@@ -31,7 +31,7 @@
       <div class="search-box">
         <input (keyup)="fnFilterPTableColumn(searchValue)" type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
         <ng-container *ngIf="listOfNameShowData && listOfNameShowData.length > 0">
-          <div style="margin: 20px 0px;max-height: 100px;">
+          <div style="margin: 20px 0px;max-height: 200px; overflow: auto;">
           <ng-container *ngFor="let item of  listOfNameShowData">
             <div style="margin-bottom: 10px;">
               <label nz-checkbox [(ngModel)]="item.checked">{{item.data}}</label> <br>

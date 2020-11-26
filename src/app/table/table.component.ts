@@ -190,16 +190,19 @@ export class TableComponent  {
       this.listOfNameShowData = data;
       this.listOfNameMasterShowData = data;
       this.activeKey = name;
+      // tslint:disable-next-line: no-unused-expression
       !this.activeKeys[name] && (this.activeKeys[name] = {search: '', active: false, reset: false});
     }else{
+      // tslint:disable-next-line: no-unused-expression
       this.activeKeys[this.activeKey].reset && (this.activeKeys[this.activeKey].search = '');
+      // tslint:disable-next-line: no-unused-expression
       !this.visible && (this.searchValue = '');
       this.activeKey = null;
     }
   }
 
   fnFilterPTableColumn(arg: string): void {
-  this.activeKeys[this.activeKey].search = arg;
+    this.activeKeys[this.activeKey].search = arg;
 
     if (arg.trim() !== '') {
       this.listOfNameShowData = this.listOfNameMasterShowData.filter((rec: any) =>
