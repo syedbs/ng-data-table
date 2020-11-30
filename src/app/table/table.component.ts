@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ITableSetting } from './table.model';
 interface DataItem {
   name: string;
   age: number;
@@ -9,7 +10,7 @@ interface DataItem {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent  {
+export class TableComponent implements OnInit  {
 
   searchValue = '';
   visible = false;
@@ -139,12 +140,16 @@ export class TableComponent  {
   listOfNameMasterShowData = [];
   listOfDisplayData = [...this.listOfData];
   rightBottom = 'bottomRight';
+  activeKey: string;
+  activeKeys: any = {}; // item: {search: '', active: false,reset:false}
+  tableSettings: ITableSetting;
   isActive = (key): boolean => {
     return this.activeKeys[key] ? this.activeKeys[key].active : false;
   }
-  activeKey: string;
-  activeKeys: any = {} // item: {search: '', active: false,reset:false}
 
+  ngOnInit(): void {
+    console.log(this.tableSettings);
+  }
   reset(): void {
     this.visible = false;
     this.searchValue = '';
