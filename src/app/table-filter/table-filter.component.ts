@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-table-filter',
+  selector: '[app-table-filter]',
   templateUrl: './table-filter.component.html',
   styleUrls: ['./table-filter.component.scss'],
 })

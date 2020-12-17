@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ITableSetting } from './table.model';
+import { DefaultTableValue, IColDef, ITableSetting } from './table.model';
 interface DataItem {
   name: string;
   age: number;
@@ -142,13 +142,37 @@ export class TableComponent implements OnInit  {
   rightBottom = 'bottomRight';
   activeKey: string;
   activeKeys: any = {}; // item: {search: '', active: false,reset:false}
-  tableSettings: ITableSetting;
+  tableSettings: ITableSetting = new DefaultTableValue({enabledServerSitePaggination: true});
+  tableColDef: IColDef[] = [
+    {
+      title: 'Name',
+      key: 'name',
+      filter: true,
+      sort: true,
+      visible: true
+    },
+    {
+      title: 'Age',
+      key: 'age',
+      filter: false,
+      sort: false,
+      visible: false
+    },
+    {
+      title: 'Address',
+      key: 'address',
+      filter: false,
+      sort: false,
+      visible: true
+    }
+  ]
   isActive = (key): boolean => {
     return this.activeKeys[key] ? this.activeKeys[key].active : false;
   }
 
   ngOnInit(): void {
-    console.log(this.tableSettings);
+    debugger;
+    // this.tableSettings
   }
   reset(): void {
     this.visible = false;

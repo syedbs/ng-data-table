@@ -1,3 +1,46 @@
+export class DefaultTableValue implements ITableSetting {
+  enabledSerialNo = false;
+  enabledCheckbox = true;
+  enabledPagination = true;
+  enabledCellClick = false;
+  enabledColumnFilter = false;
+  pageSize = 10;
+  checkboxCallbackFn = false;
+  enabledPdfDownload = false;
+  enabledExcelDownload = false;
+  enabledPrint = false;
+  enabledTotal = false;
+  totalTitle = 'Total';
+  enabledServerSitePaggination = false;
+  addNewButtonText = 'Add New';
+  hasRowOperation = false;
+  hasBulkOperation = false;
+  constructor(tableSetting?: ITableSetting){
+    if (tableSetting){
+      const { enabledSerialNo, enabledCheckbox , enabledPagination , enabledCellClick , enabledColumnFilter,
+        pageSize, checkboxCallbackFn, enabledPdfDownload, enabledExcelDownload , enabledPrint, enabledTotal,
+        totalTitle, enabledServerSitePaggination, addNewButtonText , hasRowOperation, hasBulkOperation} = tableSetting;
+
+      this.enabledSerialNo = enabledSerialNo || false;
+      this.enabledCheckbox = enabledCheckbox && enabledCheckbox;
+      this.enabledPagination = enabledPagination && enabledPagination;
+      this.enabledCellClick = enabledCellClick && enabledCellClick;
+      this.enabledColumnFilter = enabledColumnFilter && enabledColumnFilter;
+      this.pageSize = pageSize && pageSize;
+      this.checkboxCallbackFn = checkboxCallbackFn && checkboxCallbackFn;
+      this.enabledPdfDownload = enabledPdfDownload && enabledPdfDownload;
+      this.enabledExcelDownload = enabledExcelDownload && enabledExcelDownload;
+      this.enabledPrint = enabledPrint && enabledPrint;
+      this.enabledTotal = enabledTotal && enabledTotal;
+      this.totalTitle = totalTitle && totalTitle;
+      this.enabledServerSitePaggination = enabledServerSitePaggination && enabledServerSitePaggination;
+      this.addNewButtonText = addNewButtonText && addNewButtonText;
+      this.hasRowOperation = hasRowOperation && hasRowOperation;
+      this.hasBulkOperation = hasBulkOperation && hasBulkOperation;
+    }
+    
+  }
+}
 export interface ITableSetting {
     enabledSerialNo?: boolean | false;
     tableColDef?: IColDef[];
@@ -14,7 +57,7 @@ export interface ITableSetting {
     totalTitle?: string | 'Total';
     enabledServerSitePaggination?: boolean | false;
     addNewButtonText?: string | 'Add New';
-    addNewCallBackFn: () => void;
+    addNewCallBackFn?: () => void;
     hasRowOperation?: boolean | false;
     hasBulkOperation?: boolean | false;
     bulkOperations?: IOperation[];
@@ -56,12 +99,12 @@ export interface IColDef {
     title: string | '';
     key: string;
     className?: string;
-    sort?: boolean | false;
-    filter?: boolean | false;
+    sort: boolean | false;
+    filter: boolean | false;
     type?: string | 'string';
     okBtnTxt?: string | 'Apply';
     cancelBtnTxt?: string | 'Cancel';
-    visible?: boolean | true;
+    visible: boolean | true;
     alwaysVisible?: boolean | false;
     innerBtnIcon?: string| '';
 
